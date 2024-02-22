@@ -1,48 +1,94 @@
-
 {
-  "cities": [
-    { "name": "Amsterdam", "country": "Netherlands" },
-    { "name": "Athens", "country": "Greece" },
-    { "name": "Berlin", "country": "Germany" },
-    { "name": "Bern", "country": "Switzerland" },
-    { "name": "Brussels", "country": "Belgium" },
-    { "name": "Budapest", "country": "Hungary" },
-    { "name": "Copenhagen", "country": "Denmark" },
-    { "name": "Dublin", "country": "Ireland" },
-    { "name": "Helsinki", "country": "Finland" },
-    { "name": "Lisbon", "country": "Portugal" },
-    { "name": "London", "country": "United Kingdom" },
-    { "name": "Luxembourg City", "country": "Luxembourg" },
-    { "name": "Madrid", "country": "Spain" },
-    { "name": "Oslo", "country": "Norway" },
-    { "name": "Paris", "country": "France" },
-    { "name": "Prague", "country": "Czech Republic" },
-    { "name": "Rome", "country": "Italy" },
-    { "name": "Stockholm", "country": "Sweden" },
-    { "name": "Vienna", "country": "Austria" },
-    { "name": "Warsaw", "country": "Poland" }
-    ],
-
-    "flights": [
-    { "hour": "07:30" },
-    { "hour": "08:00" },
-    { "hour": "08:45" },
-    { "hour": "09:10" },
-    { "hour": "10:00" },
-    { "hour": "10:30" },
-    { "hour": "11:15" },
-    { "hour": "11:40" },
-    { "hour": "12:20" },
-    { "hour": "13:40" },
-    { "hour": "13:45" },
-    { "hour": "14:15" },
-    { "hour": "15:00" },
-    { "hour": "15:20" },
-    { "hour": "16:10" },
-    { "hour": "16:30" },
-    { "hour": "17:20" },
-    { "hour": "17:55" },
-    { "hour": "18:30" },
-    { "hour": "18:45" }
+  "Flights": [
+    {
+      "Id": 1,
+      "Origin": "London",
+      "Dest": "Paris",
+      "Tickets": 50
+    },
+    {
+      "Id": 2,
+      "Origin": "Berlin",
+      "Dest": "Rome",
+      "Tickets": 80
+    },
+    {
+      "Id": 3,
+      "Origin": "Madrid",
+      "Dest": "Amsterdam",
+      "Tickets": 30
+    },
+    {
+      "Id": 4,
+      "Origin": "Paris",
+      "Dest": "Berlin",
+      "Tickets": 20
+    },
+    {
+      "Id": 5,
+      "Origin": "Rome",
+      "Dest": "Madrid",
+      "Tickets": 70
+    },
+    {
+      "Id": 6,
+      "Origin": "Amsterdam",
+      "Dest": "London",
+      "Tickets": 40
+    },
+    {
+      "Id": 7,
+      "Origin": "Paris",
+      "Dest": "Madrid",
+      "Tickets": 60
+    },
+    {
+      "Id": 8,
+      "Origin": "Berlin",
+      "Dest": "London",
+      "Tickets": 90
+    },
+    {
+      "Id": 9,
+      "Origin": "Rome",
+      "Dest": "Berlin",
+      "Tickets": 25
+    },
+    {
+      "Id": 10,
+      "Origin": "Madrid",
+      "Dest": "Paris",
+      "Tickets": 55
+    },
+    {
+      "Id": 11,
+      "Origin": "London",
+      "Dest": "Amsterdam",
+      "Tickets": 35
+    },
+    {
+      "Id": 12,
+      "Origin": "Berlin",
+      "Dest": "Paris",
+      "Tickets": 75
+    },
+    {
+      "Id": 13,
+      "Origin": "Rome",
+      "Dest": "London",
+      "Tickets": 65
+    },
+    {
+      "Id": 14,
+      "Origin": "Amsterdam",
+      "Dest": "Berlin",
+      "Tickets": 15
+    },
+    {
+      "Id": 15,
+      "Origin": "Paris",
+      "Dest": "Rome",
+      "Tickets": 85
+    }
   ]
 }

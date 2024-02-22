@@ -5,13 +5,20 @@
     <div>
       <div class="icon"></div>
       <h2><p>MITO Airline</p></h2>
-    
     </div>
-    <input type="text" placeholder="Origin"  v-model="origin">
-    <!-- <p v-for="city in cities :key=city"> {{ city.name }}</p> -->
-    <input type="text" placeholder="Destination" v-model="destination">
-    <VueDatePicker v-model="departure" placeholder="Departure" required @submit="dateCheckNotPast()"></VueDatePicker>
-    <VueDatePicker v-model="returning" placeholder="Return" @click="dateCheckNotPast(), dateCheckReturn()" ></VueDatePicker>
+
+    <select v-model="origin" >
+    <option v-for="(city, index) in originCities" :key="index" :value="city">
+      {{ city }}
+    </option>
+    </select>
+    <select v-model="destination" >
+    <option v-for="(city, index) in destinationCities" :key="index" :value="city">
+      {{ city }}
+    </option>
+    </select>
+    <VueDatePicker v-model="departure" placeholder="Departure" :min-date="new Date()" required></VueDatePicker>
+    <VueDatePicker v-model="returning" placeholder="Return" :min-date="departuteDate" ></VueDatePicker>
     <button>Search</button>
   </form> 
   
@@ -19,7 +26,7 @@
     <p>checks:</p>
     <p>{{ origin }}</p>
     <p>{{ destination }}</p>
-    <p>{{ departure }}</p>
+    <p>{{ departuteDate }}</p>
     <p>{{ returning }}</p>
   </div>
   
@@ -32,39 +39,52 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import JsonData  from '../assets/datasheet.json';
 
+
 export default {
   components: { VueDatePicker },
   data() {
     return {
+      previousOrigin: '',
+      previousDestination: '',
+
       departure: Date,
       returning: Date,
-      cities: JsonData.cities,
+      flights: JsonData.Flights,
       origin: '',
       destination: ''
     }
   },
   methods: {
-    search(){
+    storeFormAfterRefresh(){
+      localStorage.setItem(this.previousOrigin, this.origin )
 
+    },
+    search(){
       console.log(this.origin, this.destination, this.departure, this.returning)
     },
-
-  dateCheckNotPast(){
-
-    const currentDate  = new Date();
-
-    //if(this.departure >  currentDate){
-   //   console.log('past date err')
-   // }
+    selectedOriginChange(selectedValue: string){
+      console.log( selectedValue);
+      this.origin = selectedValue;
+    },
   },
-  dateCheckReturn() {
-      if(this.returning !>this.departure){
+  computed: {
+    
+    departuteDate(){
+      return this.departure
+    },
+    fileteredCities(){
+      return   this.flights.filter( flight  => flight.Origin === this.origin)
 
-        console.log('Return date must be laer then departure err')
-      }else{
-        console.log("else")
-      }
-   }
+    },
+    originCities(){
+      const distinctOriginCities = new Set(this.flights.map(flight => flight.Origin));
+      return Array.from(distinctOriginCities);
+    },
+    destinationCities(){
+
+      return this.flights.filter( flight  => flight.Origin === this.origin).map(flight => flight.Dest)
+
+    }
   }
 }
 
