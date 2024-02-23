@@ -46,7 +46,8 @@ export default {
     return {
       previousOrigin: '',
       previousDestination: '',
-
+      previusDeparture: '',
+      previusReurn: "",
       departure: Date,
       returning: Date,
       flights: JsonData.Flights,
@@ -60,6 +61,11 @@ export default {
 
     },
     search(){
+      this.previousOrigin ="";
+      this.previousDestination = '';
+      this.previusDeparture='';
+      this.previusReurn=""
+
       console.log(this.origin, this.destination, this.departure, this.returning)
     },
     selectedOriginChange(selectedValue: string){
@@ -108,9 +114,5 @@ export default {
  
  .cheks{
   background: lightgray;
- }
-
- VueDatePicker{
- 
  }
 </style>
