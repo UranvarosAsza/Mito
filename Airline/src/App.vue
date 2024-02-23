@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
+  <!--<header>
    
     <div class="wrapper">
         <nav>
@@ -13,7 +13,7 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
     </div>
   </header>
-
+-->
   <RouterView />
 </template>
 

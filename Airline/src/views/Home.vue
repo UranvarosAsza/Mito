@@ -2,24 +2,38 @@
 <!--TODO: ikont tenni a fejlécbe -->
 <div class="formContainer"> 
   <form @submit.prevent="search">
-    <div>
-      <div class="icon"></div>
-      <h2><p>MITO Airline</p></h2>
+    <div class="form-header">
+      <div class="icon"> + </div>
+      <h2>MITO Airline</h2>
     </div>
 
-    <select v-model="origin" >
+    <div class="flex-row">
+      
+      <select v-model="origin" class="formElement" >
     <option v-for="(city, index) in originCities" :key="index" :value="city">
       {{ city }}
     </option>
     </select>
-    <select v-model="destination" >
+  
+    <select v-model="destination" class="formElement">
     <option v-for="(city, index) in destinationCities" :key="index" :value="city">
       {{ city }}
     </option>
     </select>
-    <VueDatePicker v-model="departure" placeholder="Departure" :min-date="new Date()" required></VueDatePicker>
-    <VueDatePicker v-model="returning" placeholder="Return" :min-date="departuteDate" ></VueDatePicker>
-    <button>Search</button>
+    </div>
+    <div class="flex-row">
+     
+      <VueDatePicker v-model="departure" placeholder="Departure" :min-date="new Date()" required class="formElement"></VueDatePicker>
+      <VueDatePicker v-model="returning" placeholder="Return" :min-date="departuteDate" class="formElement"></VueDatePicker>
+   
+    </div>
+    <div class="flex-row">
+      <div v-if="departuteDate()" class="error" > Please select departure</div>
+    </div>
+    <div class="flex-row">
+      <button>Search</button>
+    </div>
+    
   </form> 
   
   <div class="cheks">
@@ -97,22 +111,57 @@ export default {
 </script>
 
 <style>
+  .error{
+   color: rgb(205,35,142);
+   min-width: 100px; 
+  }
+  .flex-row{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .form-header{
+    display: flex;
+    background-color: rgb(6, 3, 141);
+    color : white;
+  }
+  .formElement{
+    
+    margin: 10px;
+    flex: auto;
+       
+  }
+  button{
+    margin: auto;
+    margin-bottom: 15px;
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgb(52, 52, 224);
+    color : white;
+    font-size: larger;
+  }
+
   p{
     color: black;
   }
  form{
-  max-width: 800;
+  
+  position: relative;
   margin: 20px auto;
   background: white;
-  padding: 20px;
  }
 
  .formContainer{
   
   margin: auto;
  }
- 
+ .icon{
+  background-image: url("../assets/plus-white.svg");
+  font-size: x-large;
+ }
  .cheks{
+  display: none;
   background: lightgray;
  }
 </style>
