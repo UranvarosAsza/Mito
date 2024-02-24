@@ -4,8 +4,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <!--<header>
+  
    
+<header>
     <div class="wrapper">
         <nav>
         <RouterLink :to="{name: 'HomePage' }">Home</RouterLink>
@@ -13,9 +14,8 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
     </div>
   </header>
--->
   <RouterView />
-</template>
+  </template>
 
 <style scoped>
 header {

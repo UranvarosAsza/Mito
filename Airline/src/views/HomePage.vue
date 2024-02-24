@@ -1,8 +1,10 @@
 <template>
-<!--TODO: 
+<!-- 
+  TODO: 
 -ikont tenni a fejlécbe
 -legördülő nem jó szélességű csak ha van selected item
--v-if-es validáció -->
+-v-if-es validáció 
+-dateselector drunk -->
 <div class="formContainer"> 
   <form @submit.prevent="search">
     <div class="form-header">
@@ -24,15 +26,15 @@
     </option>
     </select>
     </div>
+  
     <div class="flex-row">
-     
-      <VueDatePicker v-model="departure" placeholder="Departure" :min-date="new Date()" required class="formElement"></VueDatePicker>
-      <VueDatePicker v-model="returning" placeholder="Return" :min-date="departuteDate" class="formElement"></VueDatePicker>
+      <VueDatePicker v-model="departure" placeholder="Departure" :min-date="new Date()" :class="isErrorDate" required ></VueDatePicker>
+      <VueDatePicker v-model="returning"  placeholder="Return" :min-date="departuteDate" class="formElement "></VueDatePicker>
    
     </div>
     <div class="flex-row">
-      <div v-if="departuteDate()" class="error" > Please select departure</div>
-    </div>
+      <div v-if="!departure" class="error" > Please select departure</div>
+    </div> 
     <div class="flex-row">
       <button>Search</button>
     </div>
@@ -43,7 +45,7 @@
     <p>checks:</p>
     <p>{{ origin }}</p>
     <p>{{ destination }}</p>
-    <p>{{ departuteDate }}</p>
+    <p>{{ departure }}</p>
     <p>{{ returning }}</p>
   </div>
   
@@ -61,39 +63,50 @@ export default {
   components: { VueDatePicker },
   data() {
     return {
-      previousOrigin: '',
-      previousDestination: '',
-      previusDeparture: '',
-      previusReurn: "",
-      departure: Date,
-      returning: Date,
+     //previousOrigin: '',
+     // previousDestination: '',
+     // previousDeparture: '',
+     // previousReurn: "",
       flights: JsonData.Flights,
-      origin: '',
-      destination: ''
+      origin:      localStorage.getItem("previousOrigin") ?? '',
+      destination: localStorage.getItem("previousDestination") ??'',
+      departure:   localStorage.getItem("previousDeparture") ?? '',
+      returning:   localStorage.getItem("previousReurn") ?? '',
+      errDate: true
     }
   },
   methods: {
     storeFormAfterRefresh(){
-      localStorage.setItem(this.previousOrigin, this.origin )
+     // localStorage.setItem(this.previousOrigin, this.origin )
 
     },
     search(){
-      this.previousOrigin ="";
-      this.previousDestination = '';
-      this.previusDeparture='';
-      this.previusReurn=""
-
-      console.log(this.origin, this.destination, this.departure, this.returning)
+      
+      localStorage.setItem("previousOrigin", this.origin);
+      localStorage.setItem("previousDestination", this.destination);
+      localStorage.setItem("previousDeparture", this.departure);
+      localStorage.setItem("previousReturn", this.returning);
+     /* console.log("previousOrigin: ", localStorage.getItem("previousOrigin"))
+      console.log("previousDestination: ", localStorage.getItem("previousDestination"))
+      console.log("previousDeparture: ", localStorage.getItem("previousDeparture"))
+      console.log("previousReturn: ", localStorage.getItem("previousReturn")) */
+      console.log(this.origin, this.destination, this.departure, this.returning )
     },
     selectedOriginChange(selectedValue: string){
       console.log( selectedValue);
       this.origin = selectedValue;
-    },
+    }
   },
   computed: {
-    
-    departuteDate(){
+    isErrorDate(){
+      return {
+        formElement: true,
+        dateError: (this.errDate == true ) ? "isErrorWithDate"   : "noErrorWithDate"
+      }
+    },
+    departuteDate(){   
       return this.departure
+      
     },
     fileteredCities(){
       return   this.flights.filter( flight  => flight.Origin === this.origin)
@@ -117,6 +130,9 @@ export default {
   .error{
    color: rgb(205,35,142);
    min-width: 100px; 
+  }
+  .isErrorWithDate{
+    border: solid 3px rgb(205,35,142);
   }
   .flex-row{
     display: flex;
