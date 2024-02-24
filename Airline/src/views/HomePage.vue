@@ -1,5 +1,8 @@
 <template>
-<!--TODO: ikont tenni a fejlécbe -->
+<!--TODO: 
+-ikont tenni a fejlécbe
+-legördülő nem jó szélességű csak ha van selected item
+-v-if-es validáció -->
 <div class="formContainer"> 
   <form @submit.prevent="search">
     <div class="form-header">

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '../views/Home.vue'
-import SelectFlight from '@/views/SelectFlight.vue'
+import HomePage from '../views/HomePage.vue'
+import SelectFlight from './views/SelectFlight.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +10,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: HomePage
     },
     {
       path: '/selectflight',
