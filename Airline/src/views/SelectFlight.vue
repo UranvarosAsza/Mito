@@ -2,28 +2,34 @@
 <template>
 <div>
     <h1>Select your flight</h1>
-    <h2>Departure fligts:</h2>
-    <div class="flights">
-        
-        <p class="flightHeader">Flights from {{ origin }} to {{ destination }}</p>
-        <div class="listOfFlights" >
-            <div class="flight" v-for="flight in departuringFlights"> {{ flight.departureDate }}</div>
-        </div>
-    </div>
-    <div v-if="returnSelected">
-        <h2>Return fligts on {{ returningDateCroped }}: </h2>
+    <div class="flightInfotmation"></div>
+    <div class="departures">
+        <h2>Departure fligts:</h2>
         <div class="flights">
-            <p>Flights from {{ destination }} to {{ origin }}</p>
+            
+            <p class="flightHeader">Flights from {{ origin }} to {{ destination }}</p>
             <div class="listOfFlights" >
                 <div class="flight" v-for="flight in departuringFlights"> {{ flight.departureDate }}</div>
             </div>
         </div>
     </div>
-    <div v-else>
-        <VueDatePicker v-model="returning"  placeholder="Return" class="formElement"
-         @update:model-value ="returnBooking"></VueDatePicker> <!--:min-date="departuteDate"-->
-        
+    <div class="returnFlights">
+        <div v-if="returnSelected">
+            <h2>Return fligts on {{ returningDateCroped }}: </h2>
+            <div class="flights">
+                <p>Flights from {{ destination }} to {{ origin }}</p>
+                <div class="listOfFlights" >
+                    <div class="flight" v-for="flight in departuringFlights"> {{ flight.departureDate }}</div>
+                </div>
+            </div>
+        </div>
+        <div v-else>
+            <VueDatePicker v-model="returning"  placeholder="Return" class="formElement"
+            @update:model-value ="returnBooking"></VueDatePicker> <!--:min-date="departuteDate"-->
+        </div>
     </div>
+    
+    
     
     
 </div>
@@ -33,6 +39,7 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import dataJson from "../assets/datasheet.json";
+import dep from "../assets/flights.json";
 
     export default{
         components: {VueDatePicker},
@@ -42,26 +49,21 @@ import dataJson from "../assets/datasheet.json";
                 destination: localStorage.getItem("previousDestination"),
                 returning: localStorage.getItem("previousReturn") ?? "",
                 returnSelected: false,
-                departuringFlights: [
-                {
-                    "origin": "Vienna",
-                    "destination": "Budapest",
-                    "departureDate": "10:30"
-                },
-                {
-                    "origin": "Vienna",
-                    "destination": "Budapest",
-                    "departureDate": "11:30"
-                },
-                {
-                    "origin": "Vienna",
-                    "destination": "Budapest",
-                    "departureDate": "12:30"
-                }
-                ]
+                departuringFlights: dep.departures,
+                numberOfRemainingTickets: 0
             }
         },
+        mounted() {
+                this.starterReturnValueOverrite();
+        },
         methods:{
+            starterReturnValueOverrite(){
+                if( JSON.stringify(localStorage.getItem("previousReturn")).length > 0 ){
+                    this.returnSelected=true;
+                }else{
+                    this.returnSelected=false;
+                }
+            },
             returnBooking(){
                 this.returnSelected =true;
             }
@@ -83,9 +85,14 @@ import dataJson from "../assets/datasheet.json";
 </script>
 
 <style>
-    .flightHeader{
+    .flightInfotmation{
+        display: flex;
+       
         
-
+    }
+    .departures, .returnFlights{
+       
+        padding: 10px
     }
     .title{
         color : white

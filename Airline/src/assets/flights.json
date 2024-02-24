@@ -1,0 +1,20 @@
+{
+    "departures":[ {
+        "departureDate": "10:30"
+    },
+    {
+        "departureDate": "11:30"
+    },
+    {
+        "departureDate": "12:30"
+    },
+    {
+        "departureDate": "13:30"
+    },
+    {
+        "departureDate": "14:30"
+    },
+    {
+        "departureDate": "15:30"
+    }]
+}
