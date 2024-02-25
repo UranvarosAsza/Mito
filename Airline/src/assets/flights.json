@@ -1,20 +1,38 @@
 {
     "departures":[ {
-        "departureDate": "10:30"
+        "departureDate": "10:30 - 12:45"
     },
     {
-        "departureDate": "11:30"
+        "departureDate": "11:30 - 13:45"
     },
     {
-        "departureDate": "12:30"
+        "departureDate": "12:30 - 14:45"
     },
     {
-        "departureDate": "13:30"
+        "departureDate": "13:30 - 15:15"
     },
     {
-        "departureDate": "14:30"
+        "departureDate": "14:30 - 16:45"
     },
     {
-        "departureDate": "15:30"
-    }]
+        "departureDate": "15:30 - 17:45"
+    }],
+
+    "prices" : [
+        {
+            "price": "$9.99",
+            "category": "baisc"
+    
+        },
+        {
+            "price": "$19.99",
+            "category": "standard"
+    
+        },
+        {
+            "price": "$29.99",
+            "category": "plus"
+    
+        }
+    ]
 }

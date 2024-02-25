@@ -83,19 +83,12 @@ export default {
 
     },
     search(){
-     /* 
+     
       localStorage.setItem("previousOrigin", this.origin);
       localStorage.setItem("previousDestination", this.destination);
       localStorage.setItem("previousDeparture", this.departure);
-      localStorage.setItem("previousReturn", this.returning); */
-      localStorage.setItem("previousOrigin", "");
-      localStorage.setItem("previousDestination", "");
-      localStorage.setItem("previousDeparture", "");
-      localStorage.setItem("previousReturn", "");
-     /* console.log("previousOrigin: ", localStorage.getItem("previousOrigin"))
-      console.log("previousDestination: ", localStorage.getItem("previousDestination"))
-      console.log("previousDeparture: ", localStorage.getItem("previousDeparture"))
-      console.log("previousReturn: ", localStorage.getItem("previousReturn")) */
+      localStorage.setItem("previousReturn", this.returning);
+      
       console.log(this.origin, this.destination, this.departure, this.returning )
     },
     selectedOriginChange(selectedValue: string){
