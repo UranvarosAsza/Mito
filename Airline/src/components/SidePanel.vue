@@ -1,0 +1,105 @@
+<template>
+    <div class="Sidepanel">
+        <div class="flightsHeader">
+            <p>Flights</p>
+            <p>${{ totalPrice }}</p>
+        </div>
+        <div class="flights">
+            <div class="calendar"> </div>
+            <div class="flightData"> {{ origin }} - {{ destination }}</div>
+            <div class="returnData" v-if="isRetturing">{{ destination }} - {{ origin }} </div>
+        </div>
+
+        <div class="total"><p>Total </p>
+            <p>${{ totalPrice }}</p></div>
+
+        <button class="payButton">Pay now</button>
+    </div>
+    
+</template>
+
+<script lang="ts">
+    export default{
+        components: {},
+        data(){
+            return {
+                total: 0,
+                origin:      localStorage.getItem("previousOrigin"),
+                destination: localStorage.getItem("previousDestination"),
+                returning: localStorage.getItem("previousReturn") ,
+                departure: localStorage.getItem("previousDeparture"),
+                ticketPrice : localStorage.getItem("selectedTicket"),
+                returnRicketPrice: localStorage.getItem("selectedReturnTicket") ?? ''
+            }
+            
+        }, 
+        computed: {
+          totalPrice(){
+            let substringTicket = this.ticketPrice?.substring(1)
+            let substringreturnTicket = this.returnRicketPrice?.substring(1)
+            console.log(this.ticketPrice, this.returnRicketPrice)
+            const subtotoal = parseInt(substringTicket) + parseInt(substringreturnTicket)
+            return subtotoal
+          },
+          isRetturing(){
+            if( this.returning !== null ){
+                return true
+            }else{
+                return false
+            } 
+           
+          } 
+        } 
+    }
+</script>
+
+<style scoped>
+    .Sidepanel{
+        max-width: 150px;
+        
+        text-transform: uppercase;  
+        color: darkgray
+    }
+    .flights{
+        border-radius: 0px;
+        background-color: white;
+
+    }
+    .flightsHeader{
+        display: flex;
+        justify-content: space-between;
+        color: black;
+        background-color: white;
+        
+    }
+    .flightsHeader p{
+        padding: 10px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .total{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(6, 3, 141);
+        height: 40px;
+        margin-bottom: 10px;
+    }
+    .total p{
+        padding: 10px;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+    }
+    .payButton{
+        color: white;
+        background-color:  rgb(205,35,142);
+        height: 40px;
+        font-weight: bold;
+        font-size: 15px;
+        margin: 0px;
+        border-radius: 0px;
+        padding: 0px;
+        border:none;
+    }
+</style>

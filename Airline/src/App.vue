@@ -7,13 +7,16 @@ import { RouterLink, RouterView } from 'vue-router'
   
    
 <header>
-    <div class="wrapper">
+  <!--
+<div class="wrapper">
         <nav>
         <RouterLink :to="{name: 'HomePage' }">Home</RouterLink>
         <RouterLink :to="{name: 'SelectFlight' }">Select Flight</RouterLink>
       </nav>
     </div>
-  </header>
+
+  -->
+      </header>
   <RouterView />
   </template>
 

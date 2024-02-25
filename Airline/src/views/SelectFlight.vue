@@ -1,8 +1,8 @@
 <!--TODO V-bind line: 18  -->
 <template>
-    <nav class="navbar">leaving from {{ origin }} {{ destination }}</nav>
-<div>
     
+<div class="selectFlightPage">
+    <nav class="navbar">leaving from {{ origin }} {{ destination }}</nav>
     <div class="seletFlightHeader">
         <svg xmlns="http://www.w3.org/2000/svg" height="50" width="50" version="1.0">
         <metadata id="metadata9"/>
@@ -10,54 +10,58 @@
         </svg>
         <h1 class="selectFlight">Select flight</h1>
     </div>
-    <div class="flightInfotmation"></div>
-    <div class="departures">
-        <div class="flights">
-            
-            <p class="flightHeader">outbound {{ origin }} -> {{ destination }}</p>
-            <p class="tableheader">{{ headerDates }}</p>
-            <div class="listOfFlights" >
-                <div class="tickets">
-                    <div>
-                        <div class="flight" v-for="(flight, index) in departuringFlights" :key="index">{{ flight.departureDate }} </div>
-                    </div>
-                        <div class="ticket" v-for="(ticket, rowIndex) in ticketCategory" :key="rowIndex"> {{ ticket.category }}
-                            <button class="ticketData" :class="{selectedTicket: clickedItem[0]=== columnIndex &&  clickedItem[1]=== rowIndex}" v-for="(flight, columnIndex ) in departuringFlights" :key="columnIndex" @click="setTicketSelected(columnIndex, rowIndex)"> {{ ticket.price }}
-                            </button>
-
-                        </div>
-                </div>                  
-            </div>
-
-        </div>
-    </div>
-    <div class="returnFlights">
-        <div v-if="returnSelected">
-            <div class="flights">
-                <h2>Return fligts on {{ returningDateCroped }}: </h2>
-                <p class="flightHeader">inbound  {{ destination }} -> {{ origin }}</p>
-                <div class="listOfFlights" >
-                    <div class="tickets">
-                        <div>
-                            <div class="flight" v-for="(flight, index) in departuringFlights" :key="index">{{ flight.departureDate }} </div>
-                        </div>
-                            <div class="ticket" v-for="(ticket, rowIndex) in ticketCategory" :key="rowIndex"> {{ ticket.category }}
-                                <button class="ticketData" :class="{selectedTicket: clickedReturnItem[0]=== columnIndex &&  clickedReturnItem[1]=== rowIndex}" v-for="(flight, columnIndex ) in departuringFlights" :key="columnIndex" @click="setReturnTicketSelected(columnIndex, rowIndex)"> {{ ticket.price }}
-                        
-                                </button>
-
+    <div class="view">
+            <SidePanel></SidePanel>
+        
+        
+        <div class="flightInfotmation">
+            <div class="departures">
+                <div class="flights">
+                    
+                    <p class="flightHeader">outbound {{ origin }} -> {{ destination }}</p>
+                    <p class="tableheader">{{ headerDates }}</p>
+                    <div class="listOfFlights" >
+                        <div class="tickets">
+                            <div>
+                                <div class="flight" v-for="(flight, index) in departuringFlights" :key="index">{{ flight.departureDate }} </div>
                             </div>
-                    </div>                  
+                                <div class="ticket" v-for="(ticket, rowIndex) in ticketCategory" :key="rowIndex"> {{ ticket.category }}
+                                    <button class="ticketData" :class="{selectedTicket: clickedItem[0]=== columnIndex &&  clickedItem[1]=== rowIndex}" v-for="(flight, columnIndex ) in departuringFlights" :key="columnIndex" @click="setTicketSelected(columnIndex, rowIndex)"> $ {{ ticket.price }}
+                                    </button>
+
+                                </div>
+                        </div>                  
+                    </div>
+
+                </div>
+            </div>
+            <div class="returnFlights">
+                <div v-if="returnSelected">
+                    <div class="flights">
+                        <h2>Return fligts on {{ returningDateCroped }}: </h2>
+                        <p class="flightHeader">inbound  {{ destination }} -> {{ origin }}</p>
+                        <div class="listOfFlights" >
+                            <div class="tickets">
+                                <div class="flightsData">
+                                    <div class="flight" v-for="(flight, index) in departuringFlights" :key="index">{{ flight.departureDate }} </div>
+                                </div>
+                                    <div class="ticket" v-for="(ticket, rowIndex) in ticketCategory" :key="rowIndex"> {{ ticket.category }}
+                                        <button class="ticketData" :class="{selectedTicket: clickedReturnItem[0]=== columnIndex &&  clickedReturnItem[1]=== rowIndex}" v-for="(flight, columnIndex ) in departuringFlights" :key="columnIndex" @click="setReturnTicketSelected(columnIndex, rowIndex)"> $ {{ ticket.price }}
+                                
+                                        </button>
+
+                                    </div>
+                            </div>                  
+                        </div>
+                    </div>
+                </div>
+                <div v-else>
+                    <VueDatePicker v-model="returning"  placeholder="Return" class="formElement" 
+                    @update:model-value ="returnBooking" ></VueDatePicker> <!--:min-date="allowedReturndate"-->
                 </div>
             </div>
         </div>
-        <div v-else>
-            <VueDatePicker v-model="returning"  placeholder="Return" class="formElement" 
-            @update:model-value ="returnBooking" ></VueDatePicker> <!--:min-date="allowedReturndate"-->
-        </div>
     </div>
-    
-    
     
     
 </div>
@@ -68,9 +72,10 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import dataJson from "../assets/datasheet.json";
 import dep from "../assets/flights.json";
+import SidePanel from "../components/SidePanel.vue";
 
     export default{
-        components: {VueDatePicker},
+        components: {VueDatePicker,SidePanel},
         data(){
             return {
 
@@ -164,7 +169,12 @@ import dep from "../assets/flights.json";
 </script>
 
 <style>
-
+.selectFlightPage{
+    background-color: rgb(242, 242, 242);
+}
+    .view{
+        display: flex;
+    }
     .seletFlightHeader{
         display: flex;
     }
@@ -182,6 +192,11 @@ import dep from "../assets/flights.json";
     color : white;
     min-height: 50px;
     font-size: 20px;
+   }
+   .flightsData{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
    }
     .ticketData{
         color: black;
@@ -204,6 +219,9 @@ import dep from "../assets/flights.json";
         font-weight: bold;
         font-size: 12px;
         text-transform: uppercase;
+        justify-content: space-evenly;
+        display: flex;
+        flex-direction: column;
     }
 
     .tickets{
@@ -211,13 +229,10 @@ import dep from "../assets/flights.json";
         align-items: center;
         
     }
-    .tickets:first-child{
-        align-items: flex-end;
-    }
+    
     .flightInfotmation{
-        display: flex;
-       
-        
+        flex: 1;
+          
     }
     .departures, .returnFlights{
        
@@ -243,8 +258,7 @@ import dep from "../assets/flights.json";
         text-align: center;
         font-size: 12px;
         color : rgb(0, 0, 0);
-        
-        padding: 12px 20px;
+        padding: 18px 20px;
         min-width: 100px;
         margin: 10px;
     }

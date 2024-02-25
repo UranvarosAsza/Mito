@@ -20,17 +20,17 @@
 
     "prices" : [
         {
-            "price": "$9.99",
+            "price": "9.99",
             "category": "baisc"
     
         },
         {
-            "price": "$19.99",
+            "price": "19.99",
             "category": "standard"
     
         },
         {
-            "price": "$29.99",
+            "price": "29.99",
             "category": "plus"
     
         }
