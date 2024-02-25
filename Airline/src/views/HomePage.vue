@@ -27,8 +27,10 @@
     </select>
     </div>
   
-    <div class="flex-row">
-      <VueDatePicker v-model="departure" placeholder="Departure" :min-date="new Date()" :class="isErrorDate" required ></VueDatePicker>
+    <div class="flex-row">                              
+      <VueDatePicker v-model="departure" placeholder="Departure" :min-date="new Date()"
+        class="formElement" :class="{ isErrorWithDate: isErrorDate }"
+          required ></VueDatePicker>
       <VueDatePicker v-model="returning"  placeholder="Return" :min-date="departuteDate" class="formElement "></VueDatePicker>
    
     </div>
@@ -81,11 +83,15 @@ export default {
 
     },
     search(){
-      
+     /* 
       localStorage.setItem("previousOrigin", this.origin);
       localStorage.setItem("previousDestination", this.destination);
       localStorage.setItem("previousDeparture", this.departure);
-      localStorage.setItem("previousReturn", this.returning);
+      localStorage.setItem("previousReturn", this.returning); */
+      localStorage.setItem("previousOrigin", "");
+      localStorage.setItem("previousDestination", "");
+      localStorage.setItem("previousDeparture", "");
+      localStorage.setItem("previousReturn", "");
      /* console.log("previousOrigin: ", localStorage.getItem("previousOrigin"))
       console.log("previousDestination: ", localStorage.getItem("previousDestination"))
       console.log("previousDeparture: ", localStorage.getItem("previousDeparture"))
@@ -99,10 +105,11 @@ export default {
   },
   computed: {
     isErrorDate(){
-      return {
-        formElement: true,
-        dateError: (this.errDate == true ) ? "isErrorWithDate"   : "noErrorWithDate"
-      }
+       if(this.departure){
+          return false
+        }else{
+          return true
+        }
     },
     departuteDate(){   
       return this.departure
