@@ -13,7 +13,7 @@
         <div class="total"><p>Total </p>
             <p>${{ totalPrice }}</p></div>
 
-        <button class="payButton">Pay now</button>
+        <button class="payButton" @click="showSumPanel">Pay now</button>
     </div>
     
 </template>
@@ -28,17 +28,18 @@
                 destination: localStorage.getItem("previousDestination"),
                 returning: localStorage.getItem("previousReturn") ,
                 departure: localStorage.getItem("previousDeparture"),
-                ticketPrice : localStorage.getItem("selectedTicket"),
+                ticketPrice : localStorage.getItem("selectedTicket") ??'',
                 returnRicketPrice: localStorage.getItem("selectedReturnTicket") ?? ''
             }
             
         }, 
         computed: {
           totalPrice(){
-            let substringTicket = this.ticketPrice?.substring(1)
-            let substringreturnTicket = this.returnRicketPrice?.substring(1)
-            console.log(this.ticketPrice, this.returnRicketPrice)
-            const subtotoal = parseInt(substringTicket) + parseInt(substringreturnTicket)
+            let substringTicket = this.ticketPrice.substring(1)
+            let substringreturnTicket = this.returnRicketPrice.substring(1)
+            //  console.log(this.ticketPrice, this.returnRicketPrice)
+            let subtotoal = parseFloat(substringTicket) + parseFloat(substringreturnTicket)
+            localStorage.setItem("totalPrice", subtotoal.toString())
             return subtotoal
           },
           isRetturing(){
@@ -47,20 +48,28 @@
             }else{
                 return false
             } 
-           
-          } 
-        } 
+          }
+        },
+        methods:{
+            showSumPanel(){
+                localStorage.setItem("panelShow", "true")
+                console.log("showpanel: ", localStorage.getItem("panelShow"))
+            }
+        }
     }
 </script>
 
 <style scoped>
     .Sidepanel{
-        max-width: 150px;
-        
+        width: 200px;
+        padding-top: 10px;
         text-transform: uppercase;  
-        color: darkgray
+        color: darkgray;
+        background-color: transparent;
+        
     }
     .flights{
+        text-align: center;
         border-radius: 0px;
         background-color: white;
 
@@ -92,6 +101,7 @@
         color: white;
     }
     .payButton{
+        width:100%;
         color: white;
         background-color:  rgb(205,35,142);
         height: 40px;
