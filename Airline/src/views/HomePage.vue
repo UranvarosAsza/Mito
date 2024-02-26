@@ -8,7 +8,9 @@
 <div class="formContainer"> 
   <form @submit.prevent="search">
     <div class="form-header">
-      <div class="icon"> + </div>
+      <div class="icon"><svg width="50px" height="50px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 12H20M12 4V20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg></div>
       <h2>MITO Airline</h2>
     </div>
 
@@ -38,18 +40,12 @@
       <div v-if="!departure" class="error" > Please select departure</div>
     </div> 
     <div class="flex-row">
-      <button>Search</button>
+      <button><RouterLink :to="{name: 'SelectFlight' }" @click="search">Search</RouterLink></button>
+      <RouterView />
     </div>
     
   </form> 
   
-  <div class="cheks">
-    <p>checks:</p>
-    <p>{{ origin }}</p>
-    <p>{{ destination }}</p>
-    <p>{{ departure }}</p>
-    <p>{{ returning }}</p>
-  </div>
   
 </div>
 </template>
@@ -59,10 +55,10 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import JsonData  from '../assets/datasheet.json';
-
+import { RouterLink, RouterView } from 'vue-router'
 
 export default {
-  components: { VueDatePicker },
+  components: { VueDatePicker, RouterLink, RouterView },
   data() {
     return {
      //previousOrigin: '',
@@ -128,6 +124,7 @@ export default {
 
 <style>
   .error{
+    padding-left: 15px;
    color: rgb(205,35,142);
    min-width: 100px; 
   }
@@ -176,11 +173,8 @@ export default {
   margin: auto;
  }
  .icon{
-  background-image: url("../assets/plus-white.svg");
-  font-size: x-large;
+    padding: 10px;
+    color: white;
  }
- .cheks{
-  display: none;
-  background: lightgray;
- }
+ 
 </style>
